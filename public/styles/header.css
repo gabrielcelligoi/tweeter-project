@@ -1,0 +1,18 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#header {
+  display: flex;
+  height: 400px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: darkgoldenrod;
+  color: white;
+  flex-direction: column;
+  background-image: url('/images/asfalt-light.png');
+}

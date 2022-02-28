@@ -21,7 +21,14 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-
+.container {
+  display: flex;
+  width: 90%;
+  align-items: center;
+  background-color: #f4f1ec;
+  margin: 32px;
+  flex-direction: column;
+}
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
