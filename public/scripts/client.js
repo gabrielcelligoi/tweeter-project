@@ -54,6 +54,7 @@ $(document).ready(function() {
     } else {
       //erase the text area content when the submit button is clicked
       $('#tweet-text').val('');
+      
 
       $.ajax({
         url: '/tweets',
@@ -77,6 +78,7 @@ $(document).ready(function() {
           success: (tweets) => {
             $('#tweets-container').html(""); //this line erase all existing data in #tweets-container. It has do be setted before calling renderTweets().
             renderTweets(tweets); //After cleaning up the #tweets-container content, renderTweets() render the new tweet that has been POSTed and sets it to be GETed
+            $('.counter').val('140'); //This line of code reset the counter to 140
           },
           error: (err) => {
             console.log(`error: ${err}`);

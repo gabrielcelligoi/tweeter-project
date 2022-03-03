@@ -1,4 +1,6 @@
-$(document).ready(function() {
+
+  
+$(document).ready(function() {  
   $("#tweet-text").on('input', function(element) {
     let totalCharacters = element.target.value.length;
     let counterNum = 140 - totalCharacters;
@@ -11,5 +13,5 @@ $(document).ready(function() {
     }
   });
 
-  console.log("document is ready");
+  console.log("document is ready");  
 });

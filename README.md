@@ -2,17 +2,21 @@
 
 Tweeter is a simple, single-page Twitter clone.
 
-This repository is the starter code for the project: Students will fork and clone this repository, then build upon it to practice their HTML, CSS, JS, jQuery and AJAX front-end skills, and their Node, Express back-end skills.
+This is a full stack web application built with  HTML, CSS, JS, jQuery and AJAX in front-end, and with Node and Express in back-end. The Tweeter app has a Responsive Design, supporting different devices, browsers, and screen resolutions. Its look and feel have some features like a shadow when the user hovers over the tweets and a change of color when hovering over the social media buttons. The form for tweet submission has a counter that turns red if the limit of 140 chars is reached. If the submission is empty or the user tries to submit a tweet with more than 140 characters, the app displays a validation error.
 
-## Getting Started
+## Final Product
 
-1. [Create](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) a new repository using this repository as a template.
-2. Clone your repository onto your local device.
-3. Install dependencies using the `npm install` command.
-3. Start the web server using the `npm run local` command. The app will be served at <http://localhost:8080/>.
-4. Go to <http://localhost:8080/> in your browser.
+
 
 ## Dependencies
 
 - Express
 - Node 5.10.x or above
+- body-parser
+- chance
+- md5
+
+## Getting Started
+
+- Install all dependencies (using the `npm install` command).
+- Run the development web server using the `node express_server.js` command.
