@@ -1,0 +1,16 @@
+@media only screen and (min-width: 1024px) {
+  #header {
+    width: 30%;
+    margin: 32px;
+    height: 0px;  
+  }
+
+  .container {
+    width: 55%;
+    float: right;
+  }
+
+  #avatar {
+    margin-top: 318px;
+  }
+}

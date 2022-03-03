@@ -7,8 +7,15 @@ html {
 
 #header {
   display: flex;
+  height: auto;
+  width: 100%; 
+}
+
+#avatar {
+  display: flex;
   height: 400px;
   width: 100%;
+  
   justify-content: center;
   align-items: center;
   background-color: darkgoldenrod;
