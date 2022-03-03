@@ -8,30 +8,30 @@
 
 $(document).ready(function() {
 
-  const data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png"
-        ,
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd" },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1461113959088
-    }
-  ]
+  // const data = [
+  //   {
+  //     "user": {
+  //       "name": "Newton",
+  //       "avatars": "https://i.imgur.com/73hZDYK.png"
+  //       ,
+  //       "handle": "@SirIsaac"
+  //     },
+  //     "content": {
+  //       "text": "If I have seen further it is by standing on the shoulders of giants"
+  //     },
+  //     "created_at": 1461116232227
+  //   },
+  //   {
+  //     "user": {
+  //       "name": "Descartes",
+  //       "avatars": "https://i.imgur.com/nlhLi3I.png",
+  //       "handle": "@rd" },
+  //     "content": {
+  //       "text": "Je pense , donc je suis"
+  //     },
+  //     "created_at": 1461113959088
+  //   }
+  // ]
   
   const createTweetElement = function(tweetObject) {
     const tweet = $(`<article>
@@ -60,23 +60,67 @@ $(document).ready(function() {
   const renderTweets = function(tweets) {
     // loops through tweets
     for (let element of tweets) {
-
-      // calls createTweetElement for each tweet
-      const $tweet = createTweetElement(element);
-
-      // takes return value and appends it to the tweets container
+      const $tweet = createTweetElement(element) 
+      
       $('#tweets-container').append($tweet);
-    }    
+    }
   };
 
-  renderTweets(data);
+  // renderTweets(data);
+  
 
+  const $button = $("#tweet-form");
+  $button.on("submit", function(event) {
+    event.preventDefault();
+    console.log("New tweet submited.");    
+    const serializedData = $(this).serialize();
+    // console.log("serialized data: ", serializedData);
+    // console.log("serialized data: ", serializedData.length);
+    const check = $('#tweet-text').val();
+    console.log(check)
+    if (check.length > 140) {
+      alert("Your tweet is too long.")
+    } else if (check.length === 0) {
+      alert("Your tweeter is empty.")
+    } else {
+      $('#tweet-text').val('');
 
-  // // const $tweet = $(`<article class="tweet">Hello world</article>`);
-  // const $tweet = createTweetElement(example);
+    $.ajax({
+      url: '/tweets',
+      method: 'POST',
+      dataType: 'text',
+      data: serializedData,
+      success: (tweets) => {
+        loadTweets(); //i think this is not working
+        // console.log("Working!")
+      },
+      error: (err) => {
+        console.log(`error: ${err}`)        
+      }
+      
+    });
+
+    const loadTweets = () => {
+      $.ajax({
+        url: '/tweets',
+        method: 'GET',
+        dataType: 'json',
+        success: (tweets) => {
+          const reverseTweets = tweets.reverse();
+          // console.log(reverseTweets)
+          $('#tweets-container').html("");
+          renderTweets(reverseTweets) },
+        error: (err) => {
+          console.log(`error: ${err}`)
+        } 
+      });
+    };
+  
+    loadTweets();
+    }
+    
+  })
 
   
-  // $('#tweets-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
+
   });
-
-
