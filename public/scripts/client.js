@@ -78,10 +78,10 @@ $(document).ready(function() {
     // console.log("serialized data: ", serializedData.length);
     const check = $('#tweet-text').val();
     console.log(check)
-    if (check.length > 140) {
-      alert("Your tweet is too long.")
+    if (check.length > 140) {      
+      $("#error-msg-limit").slideDown()
     } else if (check.length === 0) {
-      alert("Your tweeter is empty.")
+      $("#error-msg-empty").slideDown()
     } else {
       $('#tweet-text').val('');
 
@@ -117,6 +117,10 @@ $(document).ready(function() {
     };
   
     loadTweets();
+
+    $("#error-msg-limit").slideUp()
+    $("#error-msg-empty").slideUp()
+
     }
     
   })

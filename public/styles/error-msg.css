@@ -1,0 +1,28 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#error-msg-limit {
+  display: none;
+  text-align: center;
+  border: 2px solid;
+  border-color: red;
+  width: auto;
+  margin: 50px;
+  color: red;  
+  padding: 10px;
+}
+
+#error-msg-empty {
+  display: none;
+  text-align: center;
+  border: 2px solid;
+  border-color: red;
+  width: auto;
+  margin: 50px;
+  color: red;  
+  padding: 10px;
+}
