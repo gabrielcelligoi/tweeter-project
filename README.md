@@ -6,7 +6,9 @@ This is a full stack web application built with  HTML, CSS, JS, jQuery and AJAX 
 
 ## Final Product
 
+!["Mobile version"](https://github.com/gabrielcelligoi/tweeter-project/blob/master/docs/tweet-mobile.png?raw=true)
 
+!["Desktop version: error message due to exceeding the limit of 140 characters."](https://github.com/gabrielcelligoi/tweeter-project/blob/master/docs/tweet-desktop-error.png?raw=true)
 
 ## Dependencies
 
