@@ -7,32 +7,7 @@
 
 
 $(document).ready(function() {
-
-  // const data = [
-  //   {
-  //     "user": {
-  //       "name": "Newton",
-  //       "avatars": "https://i.imgur.com/73hZDYK.png"
-  //       ,
-  //       "handle": "@SirIsaac"
-  //     },
-  //     "content": {
-  //       "text": "If I have seen further it is by standing on the shoulders of giants"
-  //     },
-  //     "created_at": 1461116232227
-  //   },
-  //   {
-  //     "user": {
-  //       "name": "Descartes",
-  //       "avatars": "https://i.imgur.com/nlhLi3I.png",
-  //       "handle": "@rd" },
-  //     "content": {
-  //       "text": "Je pense , donc je suis"
-  //     },
-  //     "created_at": 1461113959088
-  //   }
-  // ]
-  
+ 
   const createTweetElement = function(tweetObject) {
     const tweet = $(`<article>
                       <header>
@@ -55,76 +30,65 @@ $(document).ready(function() {
 
     return tweet;
   };
-  
+
 
   const renderTweets = function(tweets) {
-    // loops through tweets
     for (let element of tweets) {
-      const $tweet = createTweetElement(element) 
+      const $tweet = createTweetElement(element);
       
-      $('#tweets-container').append($tweet);
+      $('#tweets-container').prepend($tweet);
     }
   };
-
-  // renderTweets(data);
   
 
   const $button = $("#tweet-form");
   $button.on("submit", function(event) {
     event.preventDefault();
-    console.log("New tweet submited.");    
+    console.log("New tweet submited.");
     const serializedData = $(this).serialize();
-    // console.log("serialized data: ", serializedData);
-    // console.log("serialized data: ", serializedData.length);
-    const check = $('#tweet-text').val();
-    console.log(check)
-    if (check.length > 140) {      
-      $("#error-msg-limit").slideDown()
-    } else if (check.length === 0) {
-      $("#error-msg-empty").slideDown()
+    const textAreaContent = $('#tweet-text').val();
+    if (textAreaContent.length > 140) {
+      $("#error-msg-limit").slideDown();
+    } else if (textAreaContent.length === 0) {
+      $("#error-msg-empty").slideDown();
     } else {
+      //erase the text area content when the submit button is clicked
       $('#tweet-text').val('');
 
-    $.ajax({
-      url: '/tweets',
-      method: 'POST',
-      dataType: 'text',
-      data: serializedData,
-      success: (tweets) => {
-        loadTweets(); //i think this is not working
-        // console.log("Working!")
-      },
-      error: (err) => {
-        console.log(`error: ${err}`)        
-      }
-      
-    });
-
-    const loadTweets = () => {
       $.ajax({
         url: '/tweets',
-        method: 'GET',
-        dataType: 'json',
+        method: 'POST',
+        dataType: 'text',
+        data: serializedData,
         success: (tweets) => {
-          const reverseTweets = tweets.reverse();
-          // console.log(reverseTweets)
-          $('#tweets-container').html("");
-          renderTweets(reverseTweets) },
+          loadTweets(); //it shows the new tweet in the top of the list
+        },
         error: (err) => {
-          console.log(`error: ${err}`)
-        } 
+          console.log(`error: ${err}`);
+        }
+        
       });
-    };
-  
-    loadTweets();
 
-    $("#error-msg-limit").slideUp()
-    $("#error-msg-empty").slideUp()
+      const loadTweets = () => {
+        $.ajax({
+          url: '/tweets',
+          method: 'GET',
+          dataType: 'json',
+          success: (tweets) => {
+            $('#tweets-container').html(""); //this line erase all existing data in #tweets-container. It has do be setted before calling renderTweets().
+            renderTweets(tweets); //After cleaning up the #tweets-container content, renderTweets() render the new tweet that has been POSTed and sets it to be GETed
+          },
+          error: (err) => {
+            console.log(`error: ${err}`);
+          }
+        });
+      };
+    
+      loadTweets();
+
+      $("#error-msg-limit").slideUp();
+      $("#error-msg-empty").slideUp();
 
     }
-    
-  })
-
-  
-
   });
+});
