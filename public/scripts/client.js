@@ -39,6 +39,24 @@ $(document).ready(function() {
       $('#tweets-container').prepend($tweet);
     }
   };
+
+  const loadTweets = () => {
+    $.ajax({
+      url: '/tweets',
+      method: 'GET',
+      dataType: 'json',
+      success: (tweets) => {
+        $('#tweets-container').html(""); //this line erase all existing data in #tweets-container. It has do be setted before calling renderTweets().
+        renderTweets(tweets); //After cleaning up the #tweets-container content, renderTweets() render the new tweet that has been POSTed and sets it to be GETed
+        $('.counter').val('140'); //This line of code reset the counter to 140
+      },
+      error: (err) => {
+        console.log(`error: ${err}`);
+      }
+    });
+  };
+    
+  loadTweets();
   
 
   const $button = $("#tweet-form");
@@ -67,26 +85,7 @@ $(document).ready(function() {
         error: (err) => {
           console.log(`error: ${err}`);
         }
-        
       });
-
-      const loadTweets = () => {
-        $.ajax({
-          url: '/tweets',
-          method: 'GET',
-          dataType: 'json',
-          success: (tweets) => {
-            $('#tweets-container').html(""); //this line erase all existing data in #tweets-container. It has do be setted before calling renderTweets().
-            renderTweets(tweets); //After cleaning up the #tweets-container content, renderTweets() render the new tweet that has been POSTed and sets it to be GETed
-            $('.counter').val('140'); //This line of code reset the counter to 140
-          },
-          error: (err) => {
-            console.log(`error: ${err}`);
-          }
-        });
-      };
-    
-      loadTweets();
 
       $("#error-msg-limit").slideUp();
       $("#error-msg-empty").slideUp();
